@@ -12,7 +12,7 @@ class BoardTest extends FlatSpec with ShouldMatchers {
     b(2,2) should equal (' ')
   }
 
-  it should "throw exception if accessing column slightly too far out" in {
+  "apply" should "throw exception if accessing column slightly too far out" in {
     an [ArrayIndexOutOfBoundsException] should be thrownBy {
       val b = new Board()
       b(0, 3)
