@@ -1,5 +1,7 @@
 package org.pigsaw.tictactoe
 
+import scala.annotation.tailrec
+
 class Board() {
   self =>
 
@@ -15,7 +17,7 @@ class Board() {
     new Board() {
       override def apply(r: Int, c: Int): Char = {
         if (r == row && c == col)
-          'Z'
+          token
         else
           self(r, c)
       }

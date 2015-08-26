@@ -71,8 +71,17 @@ class BoardTest extends FlatSpec with ShouldMatchers {
   "takeTurn" should "place the token in an empty cell" in {
     val b0 = new Board()
     b0(0,0) should equal (' ')
+
     val b1 = b0.takeTurn(0, 0, 'Z')
     b1(0,0) should equal ('Z')
+  }
+
+  it should "place the token in an empty cell (another token to avoid faking)" in {
+    val b0 = new Board()
+    b0(0,0) should equal (' ')
+
+    val b1 = b0.takeTurn(0, 0, 'Y')
+    b1(0,0) should equal ('Y')
   }
 
   it should "not place the token in every cell" in {
