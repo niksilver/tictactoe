@@ -23,4 +23,8 @@ class Board() {
       }
     }
   }
+
+  def isFilled(row: Int, col: Int): Boolean = {
+    (apply(row, col) != ' ')
+  }
 }
