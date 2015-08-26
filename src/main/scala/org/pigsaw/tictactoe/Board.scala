@@ -1,7 +1,5 @@
 package org.pigsaw.tictactoe
 
-import scala.annotation.tailrec
-
 class Board() {
   self =>
 
