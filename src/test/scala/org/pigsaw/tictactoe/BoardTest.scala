@@ -108,7 +108,7 @@ class BoardTest extends FlatSpec with ShouldMatchers {
     b1(1,0) should equal (' ')
   }
 
-  it should "allow build up a board over several turns" in {
+  it should "allow us to build up a board over several turns" in {
     val b0 = new Board()
     b0(0,1) should equal (' ')
     b0(1,0) should equal (' ')
