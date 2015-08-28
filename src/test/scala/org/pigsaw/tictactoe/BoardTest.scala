@@ -166,4 +166,16 @@ class BoardTest extends FlatSpec with ShouldMatchers {
     val b1 = b0.takeTurn(0, 0, 'X').takeTurn(0, 1, 'Y').takeTurn(0, 2, 'Y')
     b1.winner should equal (None)
   }
+
+  it should "be the winning token if there are three on the second row" in {
+    val b0 = new Board()
+    val b1 = b0.takeTurn(1, 0, 'X').takeTurn(1, 1, 'X').takeTurn(1, 2, 'X')
+    b1.winner should equal (Some('X'))
+  }
+
+  it should "be the winning token if there are three on the third row" in {
+    val b0 = new Board()
+    val b1 = b0.takeTurn(2, 0, 'X').takeTurn(2, 1, 'X').takeTurn(2, 2, 'X')
+    b1.winner should equal (Some('X'))
+  }
 }

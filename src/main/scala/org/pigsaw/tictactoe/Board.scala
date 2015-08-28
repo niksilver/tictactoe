@@ -26,9 +26,16 @@ class Board() {
     (apply(row, col) != ' ')
   }
 
+  private def rowWinner(row: Int) =
+    isFilled(row,0) && apply(row,0) == apply(row,1) && apply(row,1) == apply(row,2)
+
   def winner: Option[Char] = {
-    if (isFilled(0,0) && apply(0,0) == apply(0,1) && apply(0,1) == apply(0,2))
-      Some(apply(0,0))
+    if (rowWinner(0))
+      Some(apply(0, 0))
+    else if (rowWinner(1))
+      Some(apply(1, 0))
+    else if (rowWinner(2))
+      Some(apply(2, 0))
     else
       None
   }
