@@ -30,13 +30,6 @@ class Board() {
     isFilled(row,0) && apply(row,0) == apply(row,1) && apply(row,1) == apply(row,2)
 
   def winner: Option[Char] = {
-    if (rowWinner(0))
-      Some(apply(0, 0))
-    else if (rowWinner(1))
-      Some(apply(1, 0))
-    else if (rowWinner(2))
-      Some(apply(2, 0))
-    else
-      None
+    (0 to 2).find(rowWinner(_)).map(r => apply(r,0))
   }
 }
