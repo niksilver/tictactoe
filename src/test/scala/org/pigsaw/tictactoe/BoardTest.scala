@@ -136,7 +136,7 @@ class BoardTest extends FlatSpec with ShouldMatchers {
     b1.isFilled(0,0) should equal (true)
   }
 
-  it should "be true if cell is filled with some other token (to avoid faking" in {
+  it should "be true if cell is filled with some other token (to avoid faking)" in {
     val b0 = new Board()
     val b1 = b0.takeTurn(0, 0, 'Y')
     b1.isFilled(0,0) should equal (true)
@@ -148,5 +148,22 @@ class BoardTest extends FlatSpec with ShouldMatchers {
     b.isFilled(1,0) should equal (false)
     b.isFilled(0,1) should equal (false)
     b.isFilled(2,2) should equal (false)
+  }
+
+  "winner" should "be None for an empty board" in {
+    val b = new Board()
+    b.winner should equal (None)
+  }
+
+  it should "be the winning token if there are three on the first row" in {
+    val b0 = new Board()
+    val b1 = b0.takeTurn(0, 0, 'X').takeTurn(0, 1, 'X').takeTurn(0, 2, 'X')
+    b1.winner should equal (Some('X'))
+  }
+
+  it should "be None if the first row is XYY" in {
+    val b0 = new Board()
+    val b1 = b0.takeTurn(0, 0, 'X').takeTurn(0, 1, 'Y').takeTurn(0, 2, 'Y')
+    b1.winner should equal (None)
   }
 }

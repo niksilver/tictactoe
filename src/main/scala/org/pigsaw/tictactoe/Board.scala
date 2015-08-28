@@ -25,4 +25,11 @@ class Board() {
   def isFilled(row: Int, col: Int): Boolean = {
     (apply(row, col) != ' ')
   }
+
+  def winner: Option[Char] = {
+    if (isFilled(0,0) && apply(0,0) == apply(0,1) && apply(0,1) == apply(0,2))
+      Some(apply(0,0))
+    else
+      None
+  }
 }
