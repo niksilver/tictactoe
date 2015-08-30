@@ -29,12 +29,12 @@ class Board() {
   private def hasRowWinner(row: Int) =
     isFilled(row,0) && apply(row,0) == apply(row,1) && apply(row,1) == apply(row,2)
 
-  private def hasColWinner =
-    isFilled(0,0) && apply(0,0) == apply(1,0) && apply(1,0) == apply(2,0)
+  private def hasColWinner(col: Int) =
+    isFilled(0,col) && apply(0,col) == apply(1,col) && apply(1,col) == apply(2,col)
 
   def winner: Option[Char] = {
     val rowToken = (0 to 2).find(hasRowWinner).map(row => apply(row,0))
-    val colToken = (if (hasColWinner) Some(apply(0,0)) else None )
+    val colToken = (0 to 2).find(hasColWinner).map(col => apply(0,col))
     rowToken orElse colToken
   }
 }
