@@ -32,13 +32,13 @@ class Board() {
   private def hasColWinner(col: Int) =
     isFilled(0,col) && apply(0,col) == apply(1,col) && apply(1,col) == apply(2,col)
 
-  private def hasDiagWinner =
-    isFilled(0,0) && apply(0,0) == apply(1,1) && apply(1,1) == apply(2,2)
+  private def hasDiagWinner(inc: Int) =
+    isFilled(0,1-inc) && apply(0,1-inc) == apply(1,1) && apply(1,1) == apply(2,1+inc)
 
   def winner: Option[Char] = {
     val rowToken = (0 to 2).find(hasRowWinner).map(row => apply(row,0))
     val colToken = (0 to 2).find(hasColWinner).map(col => apply(0,col))
-    val diagToken = (if (hasDiagWinner) Some(apply(0,0)) else None)
+    val diagToken = Seq(1, -1).find(hasDiagWinner).map(inc => apply(0,1-inc))
     rowToken orElse colToken orElse diagToken
   }
 }
