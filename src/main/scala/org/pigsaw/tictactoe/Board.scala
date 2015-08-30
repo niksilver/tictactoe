@@ -26,10 +26,15 @@ class Board() {
     (apply(row, col) != ' ')
   }
 
-  private def rowWinner(row: Int) =
+  private def hasRowWinner(row: Int) =
     isFilled(row,0) && apply(row,0) == apply(row,1) && apply(row,1) == apply(row,2)
 
+  private def hasColWinner =
+    isFilled(0,0) && apply(0,0) == apply(1,0) && apply(1,0) == apply(2,0)
+
   def winner: Option[Char] = {
-    (0 to 2).find(rowWinner(_)).map(r => apply(r,0))
+    val rowToken = (0 to 2).find(hasRowWinner).map(row => apply(row,0))
+    val colToken = (if (hasColWinner) Some(apply(0,0)) else None )
+    rowToken orElse colToken
   }
 }
