@@ -22,27 +22,20 @@ class Board() {
     }
   }
 
-  def isFilled(row: Int, col: Int): Boolean = {
-    (apply(row, col) != ' ')
-  }
+  def isToken(c: Char) = { c != ' ' }
+
+  def isFilled(row: Int, col: Int): Boolean =
+    isToken(apply(row, col))
 
   private def allTheSame(row: Int, col: Int, rowInc: Int, colInc: Int): Boolean =
     apply(row, col) == apply(row+rowInc, col+colInc) &&
       apply(row+rowInc, col+colInc) == apply(row+2*rowInc, col+2*colInc)
 
-  private def hasRowWinner(row: Int) =
-    isFilled(row,0) && allTheSame(row, 0, 0, 1)
-
-  private def hasColWinner(col: Int) =
-    isFilled(0,col) && allTheSame(0, col, 1, 0)
-
-  private def hasDiagWinner(inc: Int) =
-    isFilled(0,1-inc) && allTheSame(0, 1-inc, 1, inc)
-
   def winner: Option[Char] = {
-    val rowToken = (0 to 2).find(hasRowWinner).map(row => apply(row,0))
-    val colToken = (0 to 2).find(hasColWinner).map(col => apply(0,col))
-    val diagToken = Seq(1, -1).find(hasDiagWinner).map(inc => apply(0,1-inc))
-    rowToken orElse colToken orElse diagToken
+    val lines = Seq( (0,0, 0,1), (1,0, 0,1), (2,0, 0,1), // rows
+      (0,0, 1,0), (0,1, 1,0), (0,2, 1,0), // columns
+      (0,0, 1,1), (0,2, 1,-1)) // diagonals
+    val winner = lines.find(i => isFilled(i._1, i._2) && allTheSame(i._1, i._2, i._3, i._4))
+    winner map (i => apply(i._1, i._2))
   }
 }
