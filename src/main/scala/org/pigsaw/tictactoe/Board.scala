@@ -25,17 +25,17 @@ class Board() {
   def isToken(c: Char) = { c != ' ' }
 
   def isFilled(row: Int, col: Int): Boolean =
-    isToken(apply(row, col))
+    isToken(this(row, col))
 
   private def allTheSame(row: Int, col: Int, rowInc: Int, colInc: Int): Boolean =
-    apply(row, col) == apply(row+rowInc, col+colInc) &&
-      apply(row+rowInc, col+colInc) == apply(row+2*rowInc, col+2*colInc)
+    this(row, col) == this(row+rowInc, col+colInc) &&
+      this(row+rowInc, col+colInc) == this(row+2*rowInc, col+2*colInc)
 
   def winner: Option[Char] = {
     val lines = Seq( (0,0, 0,1), (1,0, 0,1), (2,0, 0,1), // rows
       (0,0, 1,0), (0,1, 1,0), (0,2, 1,0), // columns
       (0,0, 1,1), (0,2, 1,-1)) // diagonals
     val winner = lines.find(i => isFilled(i._1, i._2) && allTheSame(i._1, i._2, i._3, i._4))
-    winner map (i => apply(i._1, i._2))
+    winner map (i => this(i._1, i._2))
   }
 }
