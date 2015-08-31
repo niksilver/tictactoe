@@ -26,14 +26,18 @@ class Board() {
     (apply(row, col) != ' ')
   }
 
+  private def allTheSame(row: Int, col: Int, rowInc: Int, colInc: Int): Boolean =
+    apply(row, col) == apply(row+rowInc, col+colInc) &&
+      apply(row+rowInc, col+colInc) == apply(row+2*rowInc, col+2*colInc)
+
   private def hasRowWinner(row: Int) =
-    isFilled(row,0) && apply(row,0) == apply(row,1) && apply(row,1) == apply(row,2)
+    isFilled(row,0) && allTheSame(row, 0, 0, 1)
 
   private def hasColWinner(col: Int) =
-    isFilled(0,col) && apply(0,col) == apply(1,col) && apply(1,col) == apply(2,col)
+    isFilled(0,col) && allTheSame(0, col, 1, 0)
 
   private def hasDiagWinner(inc: Int) =
-    isFilled(0,1-inc) && apply(0,1-inc) == apply(1,1) && apply(1,1) == apply(2,1+inc)
+    isFilled(0,1-inc) && allTheSame(0, 1-inc, 1, inc)
 
   def winner: Option[Char] = {
     val rowToken = (0 to 2).find(hasRowWinner).map(row => apply(row,0))
