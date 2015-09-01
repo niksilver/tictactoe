@@ -3,12 +3,14 @@ package org.pigsaw.tictactoe
 class Board() {
   self =>
 
+  val empty = ' '
+
   def apply(row: Int, col: Int): Char = {
     if (col < 0 || col > 2)
       throw new ArrayIndexOutOfBoundsException(s"Column $col out of bounds")
     if (row < 0 || row > 2)
       throw new ArrayIndexOutOfBoundsException(s"Row $row out of bounds")
-    ' '
+    empty
   }
 
   def takeTurn(row: Int, col: Int, token: Char): Board = {
@@ -22,7 +24,7 @@ class Board() {
     }
   }
 
-  def isToken(c: Char) = { c != ' ' }
+  def isToken(c: Char) = { c != empty }
 
   def isFilled(row: Int, col: Int): Boolean =
     isToken(this(row, col))
