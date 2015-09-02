@@ -130,6 +130,14 @@ class BoardTest extends FlatSpec with ShouldMatchers {
     b3(2,0) should equal ('Z')
   }
 
+  it should "reject a turn in a filled cell" in {
+    val b0 = new Board()
+    val b1 = b0.takeTurn(0, 0, 'X')
+    an [Exception] should be thrownBy {
+      b1.takeTurn(0, 0, 'Y')
+    }
+  }
+
   "isFilled" should "be true if cell is filled with some token" in {
     val b0 = new Board()
     val b1 = b0.takeTurn(0, 0, 'Z')

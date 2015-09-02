@@ -14,6 +14,9 @@ class Board() {
   }
 
   def takeTurn(row: Int, col: Int, token: Char): Board = {
+    if (this(row, col) != empty) {
+      throw new Exception(s"Cell $row, $col is already filled")
+    }
     new Board() {
       override def apply(r: Int, c: Int): Char = {
         if (r == row && c == col)

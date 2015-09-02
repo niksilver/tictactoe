@@ -12,4 +12,6 @@ class PlayerTest extends FlatSpec with Matchers {
     val pO = new Player('O')
     pO.token should equal ('O')
   }
+
+
 }
