@@ -7,16 +7,15 @@ import scala.annotation.tailrec
  */
 class Player(val token: Char) {
 
+  private def randomTurn = {
+    val row = (Math.random() * 3).toInt
+    val col = (Math.random() * 3).toInt
+    (row, col)
+  }
+
   def turn(b: Board): (Int, Int) = {
-    @tailrec
-    def calc: (Int, Int) = {
-      val row = (Math.random() * 3).toInt
-      val col = (Math.random() * 3).toInt
-      if (!b.isFilled(row,col))
-        (row, col)
-      else
-        calc
-    }
-    calc
+    val turns = Stream.continually(randomTurn)
+    val opTurn = turns.find( t => !b.isFilled(t._1, t._2) )
+    opTurn.get
   }
 }
