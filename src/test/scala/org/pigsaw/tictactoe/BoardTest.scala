@@ -216,4 +216,33 @@ class BoardTest extends FlatSpec with ShouldMatchers {
     val b1 = b0.takeTurn(0, 2, 'X').takeTurn(1, 1, 'X').takeTurn(2, 0, 'X')
     b1.winner should equal (Some('X'))
   }
+
+  "isFull" should "be false for an empty board" in {
+    val b = new Board
+    b.isFull should equal (false)
+  }
+
+  it should "be true if all cells are filled" in {
+    val b = (new Board).
+      takeTurn(0, 0, 'X').takeTurn(0, 1, 'X').takeTurn(0, 2, 'X').
+      takeTurn(1, 0, 'X').takeTurn(1, 1, 'X').takeTurn(1, 2, 'X').
+      takeTurn(2, 0, 'X').takeTurn(2, 1, 'X').takeTurn(2, 2, 'X')
+    b.isFull should be (true)
+  }
+
+  it should "be false if all cells are filled except one" in {
+    val b = (new Board).
+      takeTurn(0, 0, 'X').takeTurn(0, 1, 'X').takeTurn(0, 2, 'X').
+      takeTurn(1, 0, 'X').takeTurn(1, 1, 'X').takeTurn(1, 2, 'X').
+      takeTurn(2, 0, 'X').takeTurn(2, 1, 'X')
+    b.isFull should be (false)
+  }
+
+  it should "be false if all cells are filled except another one (to avoid faking" in {
+    val b = (new Board).
+      takeTurn(0, 0, 'X').takeTurn(0, 1, 'X').
+      takeTurn(1, 0, 'X').takeTurn(1, 1, 'X').takeTurn(1, 2, 'X').
+      takeTurn(2, 0, 'X').takeTurn(2, 1, 'X').takeTurn(2, 2, 'X')
+    b.isFull should be (false)
+  }
 }

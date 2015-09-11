@@ -43,4 +43,12 @@ class Board() {
     val winner = lines.find(i => isFilled(i._1, i._2) && allTheSame(i._1, i._2, i._3, i._4))
     winner map (i => this(i._1, i._2))
   }
+
+  def isFull = {
+    val filledFlags = for {
+      row <- 0 to 2
+      col <- 0 to 2
+    } yield isFilled(row, col)
+    filledFlags.forall( _ == true)
+  }
 }
