@@ -13,9 +13,9 @@ class Player(val token: Char) {
     (row, col)
   }
 
-  def turn(b: Board): (Int, Int) = {
+  def turn(b: Board): Option[(Int, Int)] = {
     val turns = Stream.continually(randomTurn)
     val opTurn = turns.find( t => !b.isFilled(t._1, t._2) )
-    opTurn.get
+    opTurn
   }
 }

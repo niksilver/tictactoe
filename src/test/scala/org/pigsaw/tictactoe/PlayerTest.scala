@@ -26,8 +26,9 @@ class PlayerTest extends FlatSpec with Matchers {
     val b = new Board
     (1 to 20).foreach { _ =>
       val turn = p.turn(b)
+      turn should not be (empty)
       // This should not throw an exception
-      b.takeTurn(turn._1, turn._2, p.token)
+      b.takeTurn(turn.get._1, turn.get._2, p.token)
     }
   }
 
@@ -46,9 +47,9 @@ class PlayerTest extends FlatSpec with Matchers {
     val b = new Board
     val length = 20
     val p1 = new Player('Z')
-    val rows1 = (1 to length) map { _ => p1.turn(b) } map { _._1 }
+    val rows1 = for {_ <- 1 to length; turn <- p1.turn(b) } yield turn._1
     val p2 = new Player('Z')
-    val rows2 = (1 to length) map { _ => p2.turn(b) } map { _._1 }
+    val rows2 = for {_ <- 1 to length; turn <- p1.turn(b) } yield turn._1
 
     rows1 should not equal (rows2)
   }
@@ -57,9 +58,9 @@ class PlayerTest extends FlatSpec with Matchers {
     val b = new Board
     val length = 20
     val p1 = new Player('Z')
-    val cols1 = (1 to length) map { _ => p1.turn(b) } map { _._2 }
+    val cols1 = for {_ <- 1 to length; turn <- p1.turn(b) } yield turn._2
     val p2 = new Player('Z')
-    val cols2 = (1 to length) map { _ => p2.turn(b) } map { _._2 }
+    val cols2 = for {_ <- 1 to length; turn <- p1.turn(b) } yield turn._2
 
     cols1 should not equal (cols2)
   }
@@ -69,7 +70,7 @@ class PlayerTest extends FlatSpec with Matchers {
     val p = new Player('X')
     val coords = for { i <- 0 to 2; j <- 0 to 2 } yield (i, j)
     coords.foreach { coord =>
-      val starters = (1 to 100) map { _ => p.turn(b) }
+      val starters = (1 to 100) map { _ => p.turn(b).get }
       starters should contain (coord)
     }
   }
