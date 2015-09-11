@@ -84,4 +84,14 @@ class PlayerTest extends FlatSpec with Matchers {
       p.turn(b) should not equal ((row, col))
     }
   }
+
+  it should "be None when all cells are filled" in {
+    val p = new Player('X')
+    val b = (new Board).
+      takeTurn(0, 0, 'X').takeTurn(0, 1, 'X').takeTurn(0, 2, 'X').
+      takeTurn(1, 0, 'X').takeTurn(1, 1, 'X').takeTurn(1, 2, 'X').
+      takeTurn(2, 0, 'X').takeTurn(2, 1, 'X').takeTurn(2, 2, 'X')
+
+    p.turn(b) should equal (None)
+  }
 }
