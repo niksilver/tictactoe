@@ -14,10 +14,11 @@ class Player(val token: Char) {
   }
 
   def turn(b: Board): Option[(Int, Int)] = {
-    val turns = Stream.continually(randomTurn)
-    // We should be able to find a turn in 200 tries if
-    // there is a turn to take at all
-    val opTurn = turns.take(200).find( t => !b.isFilled(t._1, t._2) )
-    opTurn
+    if (b.isFull)
+      None
+    else {
+      val turns = Stream.continually(randomTurn)
+      turns.find( t => !b.isFilled(t._1, t._2) )
+    }
   }
 }
