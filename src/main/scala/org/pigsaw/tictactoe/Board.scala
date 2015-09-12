@@ -63,7 +63,7 @@ class Board() {
     Board.coords.map{ c => if (isFilled(c)) 1 else 0 }.sum
 
   def tokenCount(token: Char): Int =
-    Board.coords.map{ c => if (apply(c) == 'X') 1 else 0 }.sum
+    Board.coords.map{ c => if (apply(c) == token) 1 else 0 }.sum
 }
 
 object Board {

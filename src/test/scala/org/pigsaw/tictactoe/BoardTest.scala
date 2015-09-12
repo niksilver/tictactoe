@@ -280,17 +280,22 @@ class BoardTest extends FlatSpec with ShouldMatchers {
     b.tokenCount should equal (2)
   }
 
-  "tokenCount('X')" should "be zero for an empty board" in {
+  "tokenCount(token)" should "be zero for an empty board" in {
     (new Board).tokenCount('X') should equal (0)
   }
 
-  it should "be zero for a board with just an O" in {
+  it should "be zero when counting X for a board with just an O" in {
     val b = (new Board).takeTurn(1,1,'O')
     b.tokenCount('X') should equal (0)
   }
 
-  it should "be 1 for a board with just an X" in {
+  it should "be 1 when counting X for a board with just an X" in {
     val b = (new Board).takeTurn(1,1,'X')
     b.tokenCount('X') should equal (1)
+  }
+
+  it should "be 1 when counting O for a board with just an O" in {
+    val b = (new Board).takeTurn(1,1,'O')
+    b.tokenCount('O') should equal (1)
   }
 }
