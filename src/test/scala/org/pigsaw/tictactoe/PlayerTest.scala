@@ -28,7 +28,7 @@ class PlayerTest extends FlatSpec with Matchers {
       val turn = p.turn(b)
       turn should not be (empty)
       // This should not throw an exception
-      b.takeTurn(turn.get._1, turn.get._2, p.token)
+      b.takeTurn(turn.get, p.token)
     }
   }
 

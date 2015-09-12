@@ -3,6 +3,8 @@ package org.pigsaw.tictactoe
 class Board() {
   self =>
 
+  type Coord = (Int, Int)
+
   val empty = ' '
 
   def apply(row: Int, col: Int): Char = {
@@ -13,7 +15,8 @@ class Board() {
     empty
   }
 
-  def takeTurn(row: Int, col: Int, token: Char): Board = {
+  def takeTurn(c: Coord, token: Char): Board = {
+    val (row, col) = c
     if (this(row, col) != empty) {
       throw new Exception(s"Cell $row, $col is already filled")
     }
@@ -27,10 +30,14 @@ class Board() {
     }
   }
 
+  def takeTurn(row: Int, col: Int, token: Char): Board = takeTurn((row, col), token)
+
   def isToken(c: Char) = { c != empty }
 
   def isFilled(row: Int, col: Int): Boolean =
     isToken(this(row, col))
+
+  def isFilled(c: Coord): Boolean = isFilled(c._1, c._2)
 
   private def allTheSame(row: Int, col: Int, rowInc: Int, colInc: Int): Boolean =
     this(row, col) == this(row+rowInc, col+colInc) &&
@@ -45,10 +52,10 @@ class Board() {
   }
 
   def isFull =
-    Board.coords.forall( c => isFilled(c._1, c._2) )
+    Board.coords.forall( c => isFilled(c) )
 
   def isEmpty =
-    Board.coords.forall( c => !isFilled(c._1, c._2) )
+    Board.coords.forall( c => !isFilled(c) )
 }
 
 object Board {
