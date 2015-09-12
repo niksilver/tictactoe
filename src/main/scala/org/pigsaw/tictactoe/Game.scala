@@ -5,4 +5,6 @@ package org.pigsaw.tictactoe
  */
 class Game {
   def state: Seq[Board] = Seq(new Board)
+
+  def turn: Seq[Option[(Int, Int, Char)]] = Seq(Some(0,0,'X'))
 }
