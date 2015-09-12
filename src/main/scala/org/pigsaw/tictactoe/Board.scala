@@ -44,14 +44,18 @@ class Board() {
     winner map (i => this(i._1, i._2))
   }
 
+  def isFull =
+    Board.coords.forall( c => isFilled(c._1, c._2) )
+
+  def isEmpty =
+    Board.coords.forall( c => !isFilled(c._1, c._2) )
+}
+
+object Board {
+
   def coords = for {
     row <- 0 to 2
     col <- 0 to 2
   } yield (row, col)
 
-  def isFull =
-    coords.forall( c => isFilled(c._1, c._2) )
-
-  def isEmpty =
-    coords.forall( c => !isFilled(c._1, c._2) )
 }
