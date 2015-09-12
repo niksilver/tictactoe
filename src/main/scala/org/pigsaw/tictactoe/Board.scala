@@ -15,6 +15,8 @@ class Board() {
     empty
   }
 
+  def apply(c: Coord): Char = apply(c._1, c._2)
+
   def takeTurn(c: Coord, token: Char): Board = {
     val (row, col) = c
     if (this(row, col) != empty) {
@@ -60,7 +62,8 @@ class Board() {
   def tokenCount: Int =
     Board.coords.map{ c => if (isFilled(c)) 1 else 0 }.sum
 
-  def tokenCount(token: Char): Int = tokenCount
+  def tokenCount(token: Char): Int =
+    Board.coords.map{ c => if (apply(c) == 'X') 1 else 0 }.sum
 }
 
 object Board {
