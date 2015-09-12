@@ -11,8 +11,8 @@ class GameTest extends FlatSpec with Matchers {
     val g = Game.generate
     val b = g.head
 
-    Board.coords.foreach{ c =>
-      b.isFilled(c._1, c._2) should equal (false)
+    Board.coords.foreach{
+      b.isFilled(_) should equal (false)
     }
   }
 }
