@@ -56,6 +56,9 @@ class Board() {
 
   def isEmpty =
     Board.coords.forall( c => !isFilled(c) )
+
+  def filledCount =
+    Board.coords.map{ c => if (isFilled(c)) 1 else 0 }.sum
 }
 
 object Board {

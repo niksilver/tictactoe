@@ -260,4 +260,18 @@ class BoardTest extends FlatSpec with ShouldMatchers {
     val b = (new Board).takeTurn(1,1,'X')
     b.isEmpty should be (false)
   }
+
+  "filledCount" should "be zero for an empty board" in {
+    (new Board).filledCount should equal (0)
+  }
+
+  it should "be 1 if there's just one cell filled" in {
+    val b = (new Board).takeTurn(1,1,'X')
+    b.filledCount should equal (1)
+  }
+
+  it should "be 2 if there are two cells filled" in {
+    val b = (new Board).takeTurn(1,1,'X').takeTurn(0,0,'X')
+    b.filledCount should equal (2)
+  }
 }
