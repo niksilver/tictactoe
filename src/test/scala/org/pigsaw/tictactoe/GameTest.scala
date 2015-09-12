@@ -10,11 +10,8 @@ class GameTest extends FlatSpec with Matchers {
   "generate" should "start with an empty board" in {
     val g = Game.generate
     val b = g.head
-    val coords = for {
-      row <- 0 to 2
-      col <- 0 to 2
-    } yield (row, col)
-    coords.foreach{ c =>
+
+    Board.coords.foreach{ c =>
       b.isFilled(c._1, c._2) should equal (false)
     }
   }
