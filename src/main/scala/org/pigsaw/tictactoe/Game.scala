@@ -3,6 +3,6 @@ package org.pigsaw.tictactoe
 /**
  * Created by Nik on 11 Sep 2015.
  */
-object Game {
-  def generate: Seq[Board] = Seq(new Board)
+class Game {
+  def state: Seq[Board] = Seq(new Board)
 }

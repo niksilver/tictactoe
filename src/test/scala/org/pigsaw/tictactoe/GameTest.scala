@@ -7,12 +7,10 @@ import org.scalatest.{Matchers, FlatSpec}
  */
 class GameTest extends FlatSpec with Matchers {
 
-  "generate" should "start with an empty board" in {
-    val g = Game.generate
-    val b = g.head
+  "new Game" should "start with an empty board" in {
+    val g = new Game
+    val b = g.state(0)
 
-    Board.coords.foreach{
-      b.isFilled(_) should equal (false)
-    }
+    b.isEmpty should be (true)
   }
 }
