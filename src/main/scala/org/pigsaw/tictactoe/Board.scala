@@ -59,11 +59,12 @@ class Board() {
   def isEmpty =
     Board.coords.forall( c => !isFilled(c) )
 
-  def tokenCount: Int =
-    Board.coords.map{ c => if (isFilled(c)) 1 else 0 }.sum
+  def tokenCount: Int = tokenCount(isFilled(_))
 
-  def tokenCount(token: Char): Int =
-    Board.coords.map{ c => if (apply(c) == token) 1 else 0 }.sum
+  def tokenCount(token: Char): Int = tokenCount(apply(_) == token)
+
+  private def tokenCount(f: Coord => Boolean): Int =
+    Board.coords.map{ c => if (f(c)) 1 else 0 }.sum
 }
 
 object Board {
